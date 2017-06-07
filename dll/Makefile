@@ -1,6 +1,6 @@
-NAME = MinMax.so
+NAME = guilib1.so
 
-SRC = src/minMax.cpp
+SRC = src/*.cpp
 
 OBJ = ./*.o
 
