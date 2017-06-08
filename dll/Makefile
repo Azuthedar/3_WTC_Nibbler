@@ -1,4 +1,4 @@
-NAME = guilib1.so
+NAME = guilib2.so
 
 SRC = src/*.cpp
 
@@ -8,12 +8,13 @@ C_FLAGS = -Wall -Werror -Wextra
 
 DLL_FLAGS = -dynamiclib -flat_namespace
 
+NCURSES = -lncurses
 all: $(NAME)
 
 
 $(NAME):
 	@echo "Compiling into library $(NAME)."
-	@g++ $(C_FLAGS) $(DLL_FLAGS) $(SRC) -o $(NAME)
+	@g++ $(C_FLAGS) $(NCURSES) $(DLL_FLAGS) $(SRC) -o $(NAME)
 
 clean:
 	@echo "Removing all obj files..."

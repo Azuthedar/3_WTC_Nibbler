@@ -6,12 +6,14 @@ OBJ = *.o
 
 C_FLAGS = -Wall -Werror -Wextra
 
+NCURSES = -lncurses
+
 all: $(NAME)
 
 
 $(NAME):
 	@echo "Compiling all files"
-	@g++ $(C_FLAGS) $(SRC)
+	@g++ $(C_FLAGS) $(SRC) $(NCURSES)
 	@g++ $(C_FLAGS) $(OBJ) -o $(NAME)
 	@echo "Compiled all files..."
 

@@ -1,5 +1,16 @@
 #include "../includes/render.hpp"
 
+
+extern "C" Render *create_renderer()
+{
+	return (new Render);
+}
+
+extern "C" void	delete_renderer(Render *renderer)
+{
+	delete renderer;
+}
+
 Render::Render()
 {
 	return ;
@@ -23,7 +34,7 @@ Render Render::operator=(Render const & rhs)
 
 void	Render::renderPlayer()
 {
-
+	mvprintw(13, 10, "AAA");
 }
 
 void	Render::renderFood()
