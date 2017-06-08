@@ -35,82 +35,49 @@ int main()
 	while (loop)
 	{
 		clear();
-		int c = getch();
-		switch (c)
+		if (loop)
 		{
-			case 27:
-				loop = false;
-				break ;
-			case 259:
-				if (handle)
-					dlclose(handle);
-				handle = dlopen("guilib3.so", RTLD_NOW);
-				break ;
-			case 260:
-				if (handle)
-					dlclose(handle);
-				handle = dlopen("guilib1.so", RTLD_NOW);
-				loop = checkHandle(handle);
-				break ;
-			case 261:
-				if (handle)
-					dlclose(handle);
-				handle = dlopen("guilib2.so", RTLD_NOW);
-				break;
-		}
-		/*if (getch() == 27)
-			loop = false;
-		if (getch() == 260)
-		{
-			if (handle)
-				dlclose(handle);
-			handle = dlopen("guilib1.so", RTLD_DEFAULT);
-			loop = checkHandle(handle);
-			printw("I am in lib1");
-		}
-		else if (getch() == 261)
-		{
-			if (handle)
-				dlclose(handle);
-			handle = dlopen("guilib2.so", RTLD_DEFAULT);
-			printw("I am in lib2");
-		}
-		else if (getch() == 259)
-		{
-			if (handle)
-				dlclose(handle);
-			handle = dlopen("guilib3.so", RTLD_DEFAULT);
-			printw("I am in lib3");
-		}*/
-		if (handle)
-		{
-			create = (Render *(*)())dlsym(handle, "create_renderer");
-			destroy = (void (*)(Render *))dlsym(handle, "destroy_renderer");
+			int c = getch();
+			switch (c)
+			{
+				case 27:
+					loop = false;
+					break ;
+				case 259:
+					if (handle)
+						dlclose(handle);
+					handle = dlopen("guilib3.so", RTLD_NOW);
+					loop = checkHandle(handle);
 
-			playerRender = create();
-			playerRender->renderPlayer();
+					break ;
+				case 260:
+					if (handle)
+						dlclose(handle);
+					handle = dlopen("guilib1.so", RTLD_NOW);
+					loop = checkHandle(handle);
+					break ;
+				case 261:
+					if (handle)
+						dlclose(handle);
+					handle = dlopen("guilib2.so", RTLD_NOW);
+					break;
+			}
+			if (handle)
+			{
+				// If a handle exists initialize the create and destroy
+				create = (Render *(*)())dlsym(handle, "create_renderer");
+				destroy = (void (*)(Render *))dlsym(handle, "delete_renderer");
+
+				//Initialize playerRender and render the player
+				playerRender = create();
+				playerRender->renderPlayer();
+			}
 		}
 		refresh();
 		usleep(500);
 	}
-	endwin();
 	destroy(playerRender);
-
-	/*void *handle = dlopen("MinMax.so", RTLD_LAZY);
-
-	if (!handle)
-	{
-		std::cout << "Failed to open library" << std::endl;
-		return (1);
-	}
-
-	maxMin *(*create)();
-	void (*destroy)(maxMin*);
-
-	create = (maxMin * (*)())dlsym(handle, "create_obj");
-	destroy = (void (*) (maxMin *))dlsym(handle, "destroy_obj");
-	maxMin *maxmin = create();
-	maxmin->printSomething();
-	destroy(maxmin);*/
+	dlclose(handle);
+	endwin();
 	return (0);
 }

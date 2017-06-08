@@ -34,7 +34,7 @@ Render Render::operator=(Render const & rhs)
 
 void	Render::renderPlayer()
 {
-	mvprintw(13, 10, "AAA");
+	mvprintw(14, 10, "PPP");
 }
 
 void	Render::renderFood()
