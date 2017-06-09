@@ -1,28 +1,11 @@
-NAME = nibblers
-
-SRC = src/main.cpp
-
-OBJ = *.o
-
-C_FLAGS = -Wall -Werror -Wextra
-
-NCURSES = -lncurses
-
-all: $(NAME)
-
+NAME = sneksnak
+SRCS = -lncurses *.cpp
+FLAGS = -Wall -Wextra -Werror
 
 $(NAME):
-	@echo "Compiling all files"
-	@g++ $(C_FLAGS) $(SRC) $(NCURSES)
-	@g++ $(C_FLAGS) $(OBJ) -o $(NAME)
-	@echo "Compiled all files..."
+	clang++ -o $(NAME) $(SRCS) $(FLAGS)
 
 clean:
-	@echo "Removing all obj files..."
-	@rm -f $(OBJ)
+	rm -rf $(NAME)
 
-fclean: clean
-	@echo "Removing executable: $(NAME)"
-	@rm -f $(NAME)
-
-re: fclean all
+re: clean $(NAME)
